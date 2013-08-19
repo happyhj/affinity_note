@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+	
+	<!-- Begin: JQuery & JQuery Mobile -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0-alpha.1/jquery.mobile-1.2.0-alpha.1.min.css" />
+	<link rel="stylesheet" href="custom.css" />
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0-alpha.1/jquery.mobile-1.2.0-alpha.1.min.js"></script>
+	<!-- End: JQuery & JQuery Mobile --> 
+
+	<title>Affinity notes</title>
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript" src="initPages.js"></script>
+</head>
+<body>
+	<!-- Begin: Login -->
+	<section data-role="page" id="loginPage" data-theme="d">
+		<div data-role="content" style="text-align:center">
+			<div id="logoContainer">
+				<img src="images/notelogo.png" style="width:300px"/>
+				<!--<h1>Affinity notes</h1>-->
+			</div>
+			<div id="loginBtnContainer">
+				<input type="email" placeholder="Email" id="loginEmailInput"/>
+				<input type="password" placeholder="Password" id="loginPasswordInput"/>
+				<button onclick="signIn();">Log In</button>
+				<p>OR</p>
+				<a href="#signupPage" data-role="button" class="loginButton">Sign Up</a>
+			</div>
+		</div>
+	</section>
+	<!-- End: Login -->
+	<!-- Begin: Sign Up Account-->
+	<section data-role="page" id="signupPage" data-position="fixed"  data-add-back-btn="true">
+		<header data-role="header" data-theme="a">
+			<h1>Sign Up</h1>
+		</header>
+		<div data-role="content">
+			<div class="ui-grid-a">
+				<div class="ui-block-a"><input type="text" placeholder="First Name" id="signupFirstNameInput" /></div>
+				<div class="ui-block-b"><input type="text" placeholder="Last Name" id="signupLastNameInput" />  </div>
+			</div><!-- /grid-a -->
+			<input type="email" placeholder="Email" id="signupEmailInput" />
+			<input type="password" placeholder="Password" id="signupPasswordInput" />	
+			<input type="button" value="Done" onclick="validateAccount();"/>
+			<a href="#myShelfPage" data-role="button" id="myShelfPageAnchor" style="display:none;">Next</a>
+		</div>
+	<script type="text/javascript" src="signup.js"></script>
+	</section>
+	<!-- End: Sign Up Account-->
+	<!-- Begin: round -->
+	<section data-role="page" id="roundPage" data-position="fixed" data-theme="d">
+		<header data-role="header" data-theme="a" >
+			<h1></h1>
+		</header>
+		<div data-role="content">
+			<ul data-role="listview" data-theme="d" id="roundPageContent">
+			</ul>					
+		</div>
+		<footer data-role="footer" class="ui-bar" data-position="fixed" style="padding:0;">
+			<div class="ui-grid-b">
+				<div class="ui-block-a">	
+				<a href="#popupNewround" data-role="button" data-icon="plus">새 라운드</a>		
+				</div>
+				<div class="ui-block-b">
+				</div>
+				<div class="ui-block-c" style="text-align:right;">
+					<a href="#popupSignout" data-role="button" data-iconpos="right" data-icon="gear" data-rel="popup" data-transition="pop" data-position-to="window">로그아웃</a>
+				</div>
+			</div><!-- /grid-b -->	
+		</footer>
+		<div data-role="popup" id="popupSignout" class="ui-content">
+			<h1>정말 로그아웃 할껀가요?</h1>			
+			<input type="button" value="로그아웃" onclick="signOut();"/>
+			<input type="button" value="취소" onclick="$('#popupSignout').popup('close');"/>		
+		</div>
+	</section>
+	<!-- End: round -->
+	
+	<!-- Start: new Round -->
+	<section data-role="page" id="popupNewround" data-position="fixed"  data-add-back-btn="true" style="text-align:center;">
+		<header data-role="header" data-theme="a">
+			<h1>새 라운드</h1>	
+		</header>
+		<div data-role="content">				
+			<input type="text" placeholder="라운드 주제" id="roundTopicInput"/>
+			<textarea name="roundTopicDescription" placeholder="상세설명" id="roundTopicDescription"></textarea>
+			<label for="sliderIdeationTime">아이데이션 제한시간(초)</label>
+			<input type="range" name="sliderIdeationTime" id="sliderIdeationTime" value="60" min="30" max="600" data-mini="true" data-highlight="true" />
+			<input type="button" onclick="if($('#roundTopicInput').val()!='')$.mobile.changePage( '#selectUserPage', { transition: 'slideup'} );else{alert('토픽을 입력해 주세요.');}" value="다음">
+		</div>
+	</section>
+	<!-- End: new Round -->
+	
+	<!-- Begin: Select User -->
+	<section data-role="page" id="selectUserPage" data-position="fixed"  data-add-back-btn="true">
+		<header data-role="header" data-theme="a">
+			<h1>라운드 참가자 선택</h1>
+		</header>
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" id="userList">
+					<label><input type="checkbox" name="checkbox-0" /> I agree </label>
+				</fieldset>
+			</div>
+			<input type="button" onclick="createRound();" value="라운드 생성">
+		</div>
+		<script type="text/javascript" src="round.js"></script>
+	</section>
+	<!-- End: Select User -->
+	<!-- Begin: Before Idation -->
+	<section data-role="page" id="beforeIdeationPage" data-position="fixed"  data-add-back-btn="true" data-theme="d">
+		<header data-role="header" data-theme="a">
+			<h1>주제 소개</h1>
+		</header>
+		<div data-role="content">
+			<div style="display:inline"><img src="images/i_left.gif"/><span id="topicTitle" style="font-weight:bold;font-size:2.5em"></span><img src="images/i_right.gif"/></div>
+			<p>제한시간: <span id="ideationTime" style="color:red;font-size:2em"></span> 초</p>
+			<h3 id="topicDescription"></h3>
+			<ul data-role="listview" data-inset="true" data-theme="d" id="roundParticipators">
+			</ul>
+			<input type="button" onclick="$.mobile.changePage('#ideationPage', { transition: 'slide'} );submitIdeationStartTime();ideationFinish();" value="시작하기">
+		</div>
+	</section>
+	<!-- End: Before Idation -->
+	<!-- Begin: Idation -->
+	<section data-role="page" id="ideationPage" data-position="fixed"  data-theme="d" data-add-back-btn="true">
+		<header data-role="header" data-theme="a">
+			<h1>노트 작성</h1>
+			<a href="#allNotePage" data-role="button" data-theme="d" class="ui-btn-right">전체노트 보기</a>
+		</header>
+		<div data-role="content">
+		<ul data-role="listview" data-theme="d" id="roundParticipators" data-inset="true">
+				<li><div class="ui-grid-a">
+					<div class="ui-block-d"><input type="text" placeholder="형용사" id="tag1Input" /></div>
+					<div class="ui-block-d"><input type="text" placeholder="명사" id="tag2Input" />  </div>
+				</div></li><!-- /grid-a -->
+				<li><div data-role="fieldcontain">
+					<textarea name="textarea" id="noteDescriptionInput" placeholder="상세설명"></textarea>
+				</div></li>
+				<li id="previewDoodle"></li>
+				<li><input type="button" value="add drawing" data-icon="plus" onclick="" id="addDoodleButton"/></li>
+				<input type="text" style="display:none" value="" id="doodleStringInput"/>
+				<li><input type="button" value="submit" onclick="submitNote();ideationFinish();"/></li>
+			</ul>
+			
+			
+		</div>
+		<div data-role="popup" id="doodlePopup" data-overlay-theme="a">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<canvas id="sketchCanvas" width="250" height="250" style=" -webkit-border-radius: 10px; background:white"></canvas>
+			<div class="ui-grid-a">
+					<div class="ui-block-a"><input type="button" value="attach" id="attachDoodleString" /></div>
+					<div class="ui-block-b"><input type="button" value="clear" onclick="clearDoodle();" /></div>
+			</div>
+		</div>
+		<script type="text/javascript" src="note.js"></script>
+		<script type="text/javascript" src="doodle.js"></script>
+
+	</section>
+	<!-- End: Idation -->
+	<!-- Begin: All Note -->
+	<section data-role="page" id="allNotePage" data-position="fixed"  data-add-back-btn="true">
+	<style type="text/css">
+	.noteThumbnail {
+		text-align: center;
+		
+		background-color: #ded7c0;
+		box-shadow: 2px 2px 5px rgba(50, 50, 50, 0.75);	
+	}
+	</style>
+		<header data-role="header" data-theme="a">
+			<h1>모든 노트</h1>
+		</header>
+		<div data-role="content" id="allNotePageContent">
+		</div>	
+		<div data-role="popup" id="noteDetailPopup" data-overlay-theme="a"><a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><h1>hello</h1>
+		</div>
+	</section>
+	<!-- End: All Note -->
+	<!-- Begin: Result -->
+	<section data-role="page" id="resultPage" data-position="fixed"  data-add-back-btn="true">
+	<style type="text/css">
+	</style>
+		<header data-role="header" data-theme="a">
+			<h1>TIME'S UP!</h1>
+		</header>
+		<div data-role="content" style="text-align:center">
+					<div id="resultPageContent"></div>
+					<a href='#allNotePage' data-role='button' data-theme='d' >전체노트 보러가기</a>
+					<a href='#roundPage' data-role='button' data-theme='d' >목록으로</a>
+		</div>	
+	</section>
+	<!-- End: Result -->
+</body>
+</html>

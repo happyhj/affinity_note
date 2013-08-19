@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Begin: JQuery & JQuery Mobile -->
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<!-- End: JQuery & JQuery Mobile --> 
+	<script type="text/javascript" src="jquery.isotope.min.js"></script>
+	<title>Affinity Note: 화이트보드</title>
+	<style type="text/css">
+	@font-face {font-family: 'nanum';src:url('webfont/NanumBrush.eot') format('embedded-opentype'),url('webfont/NanumBrush.woff') format('woff'),url('webfont/NanumBrush.ttf') format('truetype');}
+	 
+	 .webweb
+	 {font-family:'nanum';}
+	 body {
+		 background-image: url('diagonal_noise.png');
+	 }
+	 
+	.item {
+		margin: 5px;
+		text-align: center;
+		width:200px;
+		background-color: #f0faab;
+		box-shadow: 3px 3px 10px rgba(50, 50, 50, 0.5);	
+	}
+	
+	#lowerfooter{
+		margin: 0;
+		position: fixed;
+		height:100px;
+		bottom: 0px;
+		width: 100%;
+		background-color: rgba(255,255,255,0.77);
+		z-index:10;
+		opacity: 0.8;
+	}
+	#roundTitle{
+		margin: 10px;
+		position: relative;
+		bottom: 5px;
+		left:0px;
+		font-size: 80px;	
+	}
+/**** Isotope Filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:         top, left, opacity;
+          transition-property:         transform, opacity;
+}
+	</style>
+	<script type="text/javascript">
+$(function(){
+	$('#container').isotope({
+	  // options
+	  itemSelector : '.item',
+	  layoutMode : 'masonry',
+	  animationEngine : 'best-available'
+   });
+});
+
+
+$(document).ready(function() {
+	showAllNoteForCurrentRoundDesktop();
+	showMoreNote();
+	showWhiteboardTitle();
+//	setInterval(showMoreNote(), 5000);
+});
+
+setInterval(function() { showMoreNote(); }, 1000);
+</script>
+</head>
+<body>
+<div id="container" class="webweb">
+</div>
+<footer id="lowerfooter">
+<div id="roundTitle" class="webweb" >hello</div>
+</footer>
+<script type="text/javascript" src="note.js"></script>
+</body>
+</html>
